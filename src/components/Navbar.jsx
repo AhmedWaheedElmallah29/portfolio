@@ -53,9 +53,8 @@ export default function Navbar() {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled ? 'glass' : ''
-        }`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'glass' : ''
+          }`}
         style={{ padding: scrolled ? '0.75rem 0' : '1.25rem 0' }}
       >
         <div
@@ -70,21 +69,19 @@ export default function Navbar() {
         >
           {/* Logo */}
           <a
-            href="#"
+            href="#top"
+            aria-label="Back to top"
             onClick={(e) => {
               e.preventDefault();
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
-            style={{
-              fontFamily: 'var(--font-heading)',
-              fontSize: '1.5rem',
-              fontWeight: 700,
-              color: 'var(--color-accent)',
-              textDecoration: 'none',
-              letterSpacing: '-0.02em',
-            }}
+            className="flex items-center"
           >
-            A<span style={{ color: 'var(--color-text)' }}>.</span>
+            <img
+              src="/logo.png"
+              alt="AE Logo"
+              className="w-12 h-12 md:w-14 md:h-14 object-contain brightness-0 invert drop-shadow-[0_0_8px_rgba(34,211,238,0.4)] transition-all duration-300 hover:scale-110 hover:drop-shadow-[0_0_12px_rgba(34,211,238,0.6)]"
+            />
           </a>
 
           {/* Desktop Nav */}
@@ -97,9 +94,8 @@ export default function Navbar() {
                 key={link.href}
                 href={link.href}
                 onClick={(e) => handleLinkClick(e, link.href)}
-                className={`nav-link ${
-                  activeSection === link.href.replace('#', '') ? 'active' : ''
-                }`}
+                className={`nav-link ${activeSection === link.href.replace('#', '') ? 'active' : ''
+                  }`}
               >
                 {link.label}
               </a>
