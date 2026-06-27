@@ -102,6 +102,25 @@ export const categories = [
 export const projects = [
   {
     id: 1,
+    title: "Water Tracker Application",
+    description:
+      "A hydration tracking app with dashboard analytics, history tracking, secure authentication, CRUD functionality with real-time optimistic UI updates, and full-stack deployment.",
+    tech: ["React", "Vite", "Clerk", "Express.js", "MongoDB Atlas", "Vercel"],
+    liveUrl: "https://water-tracker-all.vercel.app",
+    gitHubLink: "https://github.com/AhmedWaheedElmallah29/water-tracker-all",
+
+    icon: <Droplets size={40} />,
+    gradient: "linear-gradient(135deg, #00F0FF 0%, #7B61FF 50%, #FF61D0 100%)",
+    bullets: [
+      "Built hydration tracking with dashboard analytics & history",
+      "Implemented secure authentication using Clerk",
+      "CRUD operations with real-time optimistic UI updates",
+      "Integrated frontend with decoupled Express.js backend via REST APIs",
+      "Deployed full-stack on Vercel serverless infrastructure",
+    ],
+  },
+  {
+    id: 2,
     title: "E-Commerce Platform",
     description:
       "A responsive e-commerce single-page application with shopping cart functionality, complex global state management, REST API integration for dynamic product data, and robust form validation.",
@@ -115,6 +134,7 @@ export const projects = [
       "Axios",
     ],
     liveUrl: "https://1-e-commerce-project.vercel.app",
+    gitHubLink: "https://github.com/AhmedWaheedElmallah29/E-commerce",
     icon: <ShoppingCart size={40} />,
     gradient: "linear-gradient(135deg, #0080FF 0%, #00F0FF 50%, #7B61FF 100%)",
     bullets: [
@@ -123,23 +143,6 @@ export const projects = [
       "Integrated REST APIs using Axios for dynamic product data",
       "Developed robust form handling and validation using Formik & Yup",
       "Configured dynamic client-side routing with React Router DOM",
-    ],
-  },
-  {
-    id: 2,
-    title: "Water Tracker Application",
-    description:
-      "A hydration tracking app with dashboard analytics, history tracking, secure authentication, CRUD functionality with real-time optimistic UI updates, and full-stack deployment.",
-    tech: ["React", "Vite", "Clerk", "Express.js", "MongoDB Atlas", "Vercel"],
-    liveUrl: "https://water-tracker-all.vercel.app",
-    icon: <Droplets size={40} />,
-    gradient: "linear-gradient(135deg, #00F0FF 0%, #7B61FF 50%, #FF61D0 100%)",
-    bullets: [
-      "Built hydration tracking with dashboard analytics & history",
-      "Implemented secure authentication using Clerk",
-      "CRUD operations with real-time optimistic UI updates",
-      "Integrated frontend with decoupled Express.js backend via REST APIs",
-      "Deployed full-stack on Vercel serverless infrastructure",
     ],
   },
 ];
