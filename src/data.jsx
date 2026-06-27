@@ -8,6 +8,7 @@ import {
   Award,
   BookOpen,
   GraduationCap,
+  Tent,
 } from "lucide-react";
 import {
   SiHtml5,
@@ -27,6 +28,12 @@ import {
   SiNetlify,
   SiVercel,
   SiNotion,
+  SiRedux,
+  SiReactquery,
+  SiNextdotjs,
+  SiStyledcomponents,
+  SiSupabase,
+  SiReacthookform,
 } from "react-icons/si";
 
 export const personalInfo = {
@@ -44,12 +51,15 @@ export const personalInfo = {
 export const aboutStrengths = [
   {
     icon: <Code2 size={20} />,
-    text: "React.js, Vite & component-based architecture",
+    text: "Custom hooks & reusable component patterns (Compound Components)",
   },
-  { icon: <Zap size={20} />, text: "State management with Context API" },
+  {
+    icon: <Zap size={20} />,
+    text: "Advanced state management (Context API, Redux Toolkit, React Query)"
+  },
   {
     icon: <GlobeIcon size={20} />,
-    text: "REST API integration & authentication (Clerk)",
+    text: "Performance optimization (memo, useMemo, useCallback, lazy loading)",
   },
   { icon: <Users size={20} />, text: "Technical mentoring & training" },
 ];
@@ -62,6 +72,10 @@ export const categories = [
       { name: "CSS3", icon: <SiCss /> },
       { name: "JavaScript (ES6+)", icon: <SiJavascript /> },
       { name: "React.js", icon: <SiReact /> },
+      { name: "Next.js", icon: <SiNextdotjs /> },
+      { name: "Redux Toolkit (RTK)", icon: <SiRedux /> },
+      { name: "React Query", icon: <SiReactquery /> },
+      { name: "React Hook Form", icon: <SiReacthookform /> },
       { name: "Vite", icon: <SiVite /> },
       { name: "React Router DOM", icon: <SiReactrouter /> },
     ],
@@ -70,6 +84,7 @@ export const categories = [
     title: "Styling & UI",
     skills: [
       { name: "Tailwind CSS", icon: <SiTailwindcss /> },
+      { name: "Styled Components", icon: <SiStyledcomponents /> },
       { name: "Mantine UI", icon: null },
       { name: "CSS Modules", icon: <SiCss /> },
       { name: "Sass", icon: <SiSass /> },
@@ -79,6 +94,7 @@ export const categories = [
   {
     title: "Integration & Backend",
     skills: [
+      { name: "Supabase", icon: <SiSupabase /> },
       { name: "Axios", icon: <SiAxios /> },
       { name: "REST APIs", icon: null },
       { name: "Clerk Auth", icon: null },
@@ -108,7 +124,6 @@ export const projects = [
     tech: ["React", "Vite", "Clerk", "Express.js", "MongoDB Atlas", "Vercel"],
     liveUrl: "https://water-tracker-all.vercel.app",
     gitHubLink: "https://github.com/AhmedWaheedElmallah29/water-tracker-all",
-
     icon: <Droplets size={40} />,
     gradient: "linear-gradient(135deg, #00F0FF 0%, #7B61FF 50%, #FF61D0 100%)",
     bullets: [
@@ -145,6 +160,7 @@ export const projects = [
       "Configured dynamic client-side routing with React Router DOM",
     ],
   },
+
 ];
 
 export const experiences = [
@@ -174,6 +190,13 @@ export const certifications = [
     issuer: "IEEE El-Shorouk Academy Student Branch",
     year: "2025",
     icon: <Award size={24} />,
+  },
+  {
+    title: "The Ultimate React Course 2025 (84 hours)",
+    issuer: "Udemy (Instructor: Jonas Schmedtmann)",
+    year: "June 2026",
+    detail: "React, Next.js, Redux Toolkit, React Query, Supabase, Advanced Patterns",
+    icon: <BookOpen size={24} />,
   },
   {
     title: "MERN Stack Workshop",
