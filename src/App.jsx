@@ -8,6 +8,7 @@ import Experience from './components/Experience'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import CursorGlow from './components/CursorGlow'
+import FloatingWhatsApp from './components/FloatingWhatsApp'
 import './index.css'
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
         <Contact />
       </main>
       <Footer />
+      <FloatingWhatsApp />
     </>
   )
 }

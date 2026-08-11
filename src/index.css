@@ -740,3 +740,47 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   .hero-actions .btn { justify-content: center; }
   .stat-item { padding: 0 0.75rem; }
 }
+
+/* ══════════════════════════════
+   FLOATING WHATSAPP
+══════════════════════════════ */
+.floating-whatsapp {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 60px;
+  height: 60px;
+  background-color: #25d366;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+  z-index: 1000;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+}
+
+.floating-whatsapp:hover {
+  transform: scale(1.1) translateY(-5px);
+  box-shadow: 0 6px 16px rgba(37, 211, 102, 0.6);
+  color: #fff;
+}
+
+.floating-whatsapp svg {
+  width: 32px;
+  height: 32px;
+}
+
+@media (max-width: 600px) {
+  .floating-whatsapp {
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 50px;
+    height: 50px;
+  }
+  .floating-whatsapp svg {
+    width: 26px;
+    height: 26px;
+  }
+}
