@@ -2,6 +2,19 @@ import { useReveal } from '../hooks/useReveal'
 
 const TIMELINE = [
   {
+    id: 'ieee-dev',
+    date: '2025',
+    role: 'Frontend Developer',
+    org: 'IEEE El-Shorouk Academy Student Branch — Official Website',
+    details: [
+      'Worked as one of two frontend developers on a 7-person cross-functional team (1 lead, 2 UI/UX, 2 frontend, 2 backend)',
+      'Collaborated directly with the UI/UX team to translate designs into accurate, responsive React components',
+      'Split ownership of frontend modules with a fellow developer, coordinating through Git to avoid merge conflicts',
+      'Communicated regularly with the backend team to align on API contracts and data structure',
+      'Gained hands-on experience with team-based Git workflows (branching, pull requests, code reviews)',
+    ],
+  },
+  {
     id: 'ieee',
     date: '2025',
     role: 'Frontend Instructor & Core Member',
