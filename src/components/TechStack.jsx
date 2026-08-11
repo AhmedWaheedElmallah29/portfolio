@@ -1,74 +1,100 @@
-import { motion } from 'framer-motion';
-import ScrollReveal from './ScrollReveal';
-import { categories } from '../data';
+import { useRef } from 'react'
+import { useReveal } from '../hooks/useReveal'
+
+const STACK_CATEGORIES = [
+  {
+    dot: 'category-dot--frontend',
+    label: 'Frontend',
+    chips: [
+      { icon: '⚛️', label: 'React.js' },
+      { icon: '▲',  label: 'Next.js' },
+      { icon: 'JS', label: 'JavaScript ES6+' },
+      { icon: '🎨', label: 'Tailwind CSS' },
+      { icon: '🔴', label: 'Redux Toolkit' },
+      { icon: '🔗', label: 'Context API' },
+      { icon: '📡', label: 'React Query' },
+      { icon: '⚡', label: 'Vite' },
+    ],
+  },
+  {
+    dot: 'category-dot--backend',
+    label: 'Backend',
+    chips: [
+      { icon: '🟢', label: 'Node.js' },
+      { icon: '🚀', label: 'Express.js' },
+      { icon: '🍃', label: 'MongoDB' },
+      { icon: '🔶', label: 'Mongoose' },
+      { icon: '⚡', label: 'Supabase' },
+      { icon: '🔁', label: 'REST APIs' },
+      { icon: '🔐', label: 'JWT Auth' },
+    ],
+  },
+  {
+    dot: 'category-dot--tools',
+    label: 'Tools & Deployment',
+    chips: [
+      { icon: '🐙', label: 'Git / GitHub' },
+      { icon: '▲',  label: 'Vercel' },
+      { icon: '🌐', label: 'Netlify' },
+      { icon: '📮', label: 'Postman' },
+      { icon: '📋', label: 'Notion' },
+    ],
+  },
+]
+
+function TechChip({ icon, label }) {
+  const chipRef = useRef(null)
+
+  const onMouseMove = (e) => {
+    const rect = chipRef.current.getBoundingClientRect()
+    const x = ((e.clientX - rect.left - rect.width / 2) / rect.width) * 12
+    const y = ((e.clientY - rect.top - rect.height / 2) / rect.height) * 12
+    chipRef.current.style.transform = `translateY(-2px) rotateX(${-y}deg) rotateY(${x}deg)`
+  }
+  const onMouseLeave = () => {
+    chipRef.current.style.transform = ''
+  }
+
+  return (
+    <div
+      ref={chipRef}
+      className="tech-chip"
+      onMouseMove={onMouseMove}
+      onMouseLeave={onMouseLeave}
+    >
+      <span className="tech-icon">{icon}</span>
+      {label}
+    </div>
+  )
+}
 
 export default function TechStack() {
-  return (
-    <section id="skills" className="section">
-      <ScrollReveal>
-        <div className="accent-line" />
-        <p className="mono" style={{ color: 'var(--color-accent)', fontSize: '0.9rem', marginBottom: '0.5rem' }}>
-          02. Skills
-        </p>
-        <h2 className="section-title">
-          Tech Stack
-        </h2>
-      </ScrollReveal>
+  useReveal()
 
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-          gap: '2rem',
-          marginTop: '2.5rem',
-        }}
-      >
-        {categories.map((cat, catIdx) => (
-          <ScrollReveal key={cat.title} delay={catIdx * 0.1}>
-            <div
-              style={{
-                background: 'var(--color-surface)',
-                border: '1px solid var(--color-border)',
-                borderRadius: '16px',
-                padding: '1.5rem',
-              }}
-            >
-              <h3
-                style={{
-                  fontFamily: 'var(--font-heading)',
-                  fontSize: '1rem',
-                  fontWeight: 600,
-                  color: 'var(--color-accent)',
-                  marginBottom: '1rem',
-                  letterSpacing: '0.05em',
-                  textTransform: 'uppercase',
-                }}
-              >
-                {cat.title}
-              </h3>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
-                {cat.skills.map((skill, skillIdx) => (
-                  <motion.div
-                    key={skill.name}
-                    className="skill-tag"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: catIdx * 0.1 + skillIdx * 0.05, duration: 0.3 }}
-                  >
-                    {skill.icon && (
-                      <span style={{ display: 'flex', alignItems: 'center' }}>
-                        {skill.icon}
-                      </span>
-                    )}
-                    {skill.name}
-                  </motion.div>
+  return (
+    <section id="stack" className="section stack-section">
+      <div className="container">
+        <div className="section-header reveal">
+          <span className="section-tag">// 02. tech stack</span>
+          <h2 className="section-title">My Toolkit</h2>
+        </div>
+
+        <div className="stack-categories">
+          {STACK_CATEGORIES.map(({ dot, label, chips }) => (
+            <div key={label} className="stack-category reveal">
+              <div className="stack-category-label">
+                <span className={`category-dot ${dot}`} />
+                {label}
+              </div>
+              <div className="tech-grid">
+                {chips.map((chip) => (
+                  <TechChip key={chip.label} icon={chip.icon} label={chip.label} />
                 ))}
               </div>
             </div>
-          </ScrollReveal>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
-  );
+  )
 }

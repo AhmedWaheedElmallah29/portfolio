@@ -1,155 +1,90 @@
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { useState, useEffect } from 'react'
 
-const navLinks = [
-  { label: "About", href: "#about" },
-  { label: "Skills", href: "#skills" },
-  { label: "Projects", href: "#projects" },
-  { label: "Experience", href: "#experience" },
-  { label: "Contact", href: "#contact" },
-];
+const NAV_LINKS = [
+  { href: '#about',      label: 'About' },
+  { href: '#stack',      label: 'Stack' },
+  { href: '#projects',   label: 'Projects' },
+  { href: '#experience', label: 'Experience' },
+]
+
+function scrollTo(id) {
+  const el = document.querySelector(id)
+  if (!el) return
+  const top = el.getBoundingClientRect().top + window.scrollY - 80
+  window.scrollTo({ top, behavior: 'smooth' })
+}
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("");
+  const [scrolled, setScrolled]   = useState(false)
+  const [menuOpen, setMenuOpen]   = useState(false)
+  const [activeId, setActiveId]   = useState('')
 
+  // Scroll detection
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 30)
 
-      // Determine active section
-      const sections = navLinks.map((l) => l.href.replace("#", ""));
-      let current = "";
-      for (const id of sections) {
-        const el = document.getElementById(id);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          if (rect.top <= 150) {
-            current = id;
-          }
-        }
-      }
-      setActiveSection(current);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const handleLinkClick = (e, href) => {
-    e.preventDefault();
-    setMobileOpen(false);
-    const el = document.querySelector(href);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
+      // Active section detection
+      const sections = document.querySelectorAll('section[id]')
+      let current = ''
+      sections.forEach((sec) => {
+        if (window.scrollY >= sec.offsetTop - 140) current = sec.id
+      })
+      setActiveId(current)
     }
-  };
+
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  const handleNavClick = (e, href) => {
+    e.preventDefault()
+    setMenuOpen(false)
+    scrollTo(href)
+  }
 
   return (
-    <>
-      <motion.nav
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled ? "glass" : ""
-        }`}
-        style={{ padding: scrolled ? "0.75rem 0" : "1.25rem 0" }}
-      >
-        <div
-          style={{
-            maxWidth: "1200px",
-            margin: "0 auto",
-            padding: "0 1.5rem",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
+    <nav id="navbar" className={`navbar ${scrolled ? 'scrolled' : ''}`} aria-label="Main navigation">
+      <div className="nav-inner">
+        {/* Logo */}
+        <a href="#hero" className="nav-logo" onClick={(e) => handleNavClick(e, '#hero')}>
+          <span className="logo-bracket">&lt;</span>AE<span className="logo-bracket">/&gt;</span>
+        </a>
+
+        {/* Hamburger */}
+        <button
+          className={`hamburger ${menuOpen ? 'open' : ''}`}
+          onClick={() => setMenuOpen((o) => !o)}
+          aria-label="Toggle menu"
+          aria-expanded={menuOpen}
         >
-          {/* Logo */}
-          <a
-            href="#top"
-            aria-label="Back to top"
-            onClick={(e) => {
-              e.preventDefault();
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }}
-            className="flex items-center"
-          >
-            <img
-              src="/logo.png"
-              alt="AE Logo"
-              className="w-12 h-12 md:w-12 md:h-12 object-contain brightness-0 invert drop-shadow-[0_0_8px_rgba(34,211,238,0.4)] transition-all duration-300 hover:scale-110 hover:drop-shadow-[0_0_12px_rgba(34,211,238,0.6)]"
-            />
-          </a>
+          <span /><span /><span />
+        </button>
 
-          {/* Desktop Nav */}
-          <div
-            className="nav-desktop"
-            style={{ display: "flex", alignItems: "center", gap: "2rem" }}
-          >
-            {navLinks.map((link) => (
+        {/* Links */}
+        <ul className={`nav-links ${menuOpen ? 'open' : ''}`} role="list">
+          {NAV_LINKS.map(({ href, label }) => (
+            <li key={href}>
               <a
-                key={link.href}
-                href={link.href}
-                onClick={(e) => handleLinkClick(e, link.href)}
-                className={`nav-link ${
-                  activeSection === link.href.replace("#", "") ? "active" : ""
-                }`}
+                href={href}
+                className={activeId === href.slice(1) ? 'active' : ''}
+                onClick={(e) => handleNavClick(e, href)}
               >
-                {link.label}
+                {label}
               </a>
-            ))}
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            className="nav-mobile-btn"
-            onClick={() => setMobileOpen(!mobileOpen)}
-            style={{
-              background: "none",
-              border: "none",
-              color: "var(--color-text)",
-              cursor: "pointer",
-              padding: "0.5rem",
-              zIndex: 100,
-            }}
-            aria-label="Toggle menu"
-          >
-            {mobileOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
-      </motion.nav>
-
-      {/* Mobile Menu Overlay */}
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            className="nav-mobile-menu"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            {navLinks.map((link, i) => (
-              <motion.a
-                key={link.href}
-                href={link.href}
-                onClick={(e) => handleLinkClick(e, link.href)}
-                className="nav-link"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1, duration: 0.3 }}
-                style={{ fontSize: "1.5rem" }}
-              >
-                {link.label}
-              </motion.a>
-            ))}
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
-  );
+            </li>
+          ))}
+          <li>
+            <a
+              href="#contact"
+              className="nav-cta"
+              onClick={(e) => handleNavClick(e, '#contact')}
+            >
+              Let's Talk
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  )
 }

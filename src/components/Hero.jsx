@@ -1,180 +1,128 @@
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { ArrowDown, Eye, Mail } from 'lucide-react';
+import { useEffect, useRef } from 'react'
+import { useCounter } from '../hooks/useCounter'
+import heroBg from '../assets/hero_bg.png'
 
-import { personalInfo } from '../data';
+const PARTICLE_COUNT = 40
+const PARTICLE_COLORS = ['#3b82f6', '#8b5cf6', '#06b6d4', '#22c55e']
 
-function TypingAnimation({ text, speed = 80 }) {
-  const [displayedText, setDisplayedText] = useState('');
-  const [done, setDone] = useState(false);
+function Particles() {
+  const containerRef = useRef(null)
 
   useEffect(() => {
-    let i = 0;
-    const timer = setInterval(() => {
-      if (i < text.length) {
-        setDisplayedText(text.slice(0, i + 1));
-        i++;
-      } else {
-        setDone(true);
-        clearInterval(timer);
-      }
-    }, speed);
-    return () => clearInterval(timer);
-  }, [text, speed]);
+    const container = containerRef.current
+    if (!container) return
 
+    const particles = []
+    for (let i = 0; i < PARTICLE_COUNT; i++) {
+      const p = document.createElement('div')
+      p.className = 'particle'
+      const x     = Math.random() * 100
+      const dur   = 8 + Math.random() * 12
+      const delay = Math.random() * 10
+      const size  = 1 + Math.random() * 3
+      const color = PARTICLE_COLORS[Math.floor(Math.random() * PARTICLE_COLORS.length)]
+      p.style.cssText = `
+        left: ${x}%;
+        bottom: -10px;
+        width: ${size}px;
+        height: ${size}px;
+        background: ${color};
+        box-shadow: 0 0 ${size * 3}px ${color};
+        animation-duration: ${dur}s;
+        animation-delay: -${delay}s;
+      `
+      container.appendChild(p)
+      particles.push(p)
+    }
+    return () => particles.forEach((p) => p.remove())
+  }, [])
+
+  return <div ref={containerRef} className="hero-particles" aria-hidden="true" />
+}
+
+function StatCounter({ target, suffix = '', label }) {
+  const ref = useCounter(target)
   return (
-    <span>
-      {displayedText}
-      {!done && <span className="typing-cursor" />}
-    </span>
-  );
+    <div className="stat-item">
+      <span className="stat-number" ref={ref}>0</span>
+      {suffix && <span className="stat-suffix">{suffix}</span>}
+      <span className="stat-label">{label}</span>
+    </div>
+  )
 }
 
 export default function Hero() {
+  const scrollToProjects = (e) => {
+    e.preventDefault()
+    const el = document.querySelector('#projects')
+    if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' })
+  }
+  const scrollToContact = (e) => {
+    e.preventDefault()
+    const el = document.querySelector('#contact')
+    if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' })
+  }
+
   return (
-    <section
-      id="hero"
-      style={{
-        position: 'relative',
-        minHeight: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        overflow: 'hidden',
-      }}
-    >
-      {/* Animated gradient mesh background */}
-      <div className="gradient-mesh" />
-      <div className="grid-pattern" />
+    <section id="hero" className="hero">
+      {/* Background */}
+      <div className="hero-bg" aria-hidden="true">
+        <img src={heroBg} alt="" className="hero-bg-img" />
+        <div className="hero-bg-overlay" />
+      </div>
+
+      {/* Particles */}
+      <Particles />
 
       {/* Content */}
-      <div
-        style={{
-          position: 'relative',
-          zIndex: 1,
-          textAlign: 'center',
-          padding: '0 1.5rem',
-          maxWidth: '900px',
-        }}
-      >
-        {/* Greeting tag */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '0.5rem',
-            marginBottom: '1.5rem',
-            padding: '0.5rem 1.25rem',
-            background: 'var(--color-surface)',
-            border: '1px solid var(--color-border)',
-            borderRadius: '999px',
-            fontSize: '0.85rem',
-            color: 'var(--color-text-secondary)',
-            fontFamily: 'var(--font-mono)',
-          }}
-        >
-          <span style={{ color: 'var(--color-accent)' }}>{'>'}</span> Hello, I'm
-        </motion.div>
+      <div className="hero-content">
+        <div className="hero-badge">
+          <span className="badge-dot" />
+          Available for Freelance &amp; Collaboration
+        </div>
 
-        {/* Name */}
-        <motion.h1
-          className="hero-title"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.4 }}
-        >
-          {personalInfo.name}
-        </motion.h1>
+        <h1 className="hero-title">
+          <span className="hero-title-name">Ahmed Elmallah</span>
+          <span className="hero-title-role">
+            Full-Stack <span className="gradient-text">Developer</span>
+          </span>
+        </h1>
 
-        {/* Typing subtitle */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 1.0 }}
-          style={{
-            fontSize: 'clamp(1.1rem, 2.5vw, 1.5rem)',
-            color: 'var(--color-accent)',
-            fontFamily: 'var(--font-mono)',
-            fontWeight: 500,
-            marginTop: '0.75rem',
-            marginBottom: '1.5rem',
-          }}
-        >
-          <TypingAnimation text={personalInfo.title} speed={80} />
-        </motion.p>
+        <p className="hero-subtitle">
+          Building scalable, production-ready web applications with the{' '}
+          <strong>MERN stack</strong> and <strong>Next.js</strong> — from
+          real-time chat systems to full e-commerce platforms with admin
+          dashboards.
+        </p>
 
-        {/* Tagline */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1.2 }}
-          style={{
-            fontSize: 'clamp(1rem, 1.5vw, 1.15rem)',
-            color: 'var(--color-text-secondary)',
-            maxWidth: '600px',
-            margin: '0 auto 2.5rem',
-            lineHeight: 1.7,
-          }}
-        >
-          {personalInfo.tagline}
-        </motion.p>
-
-        {/* CTA Buttons */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1.5 }}
-          style={{
-            display: 'flex',
-            gap: '1rem',
-            justifyContent: 'center',
-            flexWrap: 'wrap',
-          }}
-        >
-          <a
-            href="#projects"
-            className="btn-primary"
-            onClick={(e) => {
-              e.preventDefault();
-              document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
-            }}
-          >
-            <Eye size={18} />
-            View Projects
+        <div className="hero-actions">
+          <a href="#projects" onClick={scrollToProjects} className="btn btn-primary">
+            <span>View My Work</span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
           </a>
-          <a
-            href="#contact"
-            className="btn-secondary"
-            onClick={(e) => {
-              e.preventDefault();
-              document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-            }}
-          >
-            <Mail size={18} />
-            Contact Me
+          <a href="#contact" onClick={scrollToContact} className="btn btn-ghost">
+            Get in Touch
           </a>
-        </motion.div>
+        </div>
+
+        <div className="hero-stats">
+          <StatCounter target={5}   label="Live Projects" />
+          <div className="stat-divider" aria-hidden="true" />
+          <StatCounter target={144} suffix="+" label="Training Hours" />
+          <div className="stat-divider" aria-hidden="true" />
+          <StatCounter target={5}   label="Certifications" />
+        </div>
       </div>
 
       {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2.5, duration: 0.6 }}
-        style={{
-          position: 'absolute',
-          bottom: '2rem',
-          left: '50%',
-          transform: 'translateX(-50%)',
-        }}
-      >
-        <div className="scroll-indicator" style={{ color: 'var(--color-text-muted)' }}>
-          <ArrowDown size={22} />
+      <div className="hero-scroll-indicator" aria-hidden="true">
+        <div className="scroll-mouse">
+          <div className="scroll-wheel" />
         </div>
-      </motion.div>
+        <span>Scroll</span>
+      </div>
     </section>
-  );
+  )
 }

@@ -1,109 +1,109 @@
-import ScrollReveal from './ScrollReveal';
-import { Briefcase } from 'lucide-react';
-import { experiences } from '../data';
+import { useReveal } from '../hooks/useReveal'
+
+const TIMELINE = [
+  {
+    id: 'ieee',
+    date: '2025',
+    role: 'Frontend Instructor & Core Member',
+    org: 'IEEE El-Shorouk Academy Student Branch',
+    details: [
+      'Delivered comprehensive frontend training covering HTML, CSS, JavaScript, and React',
+      'Mentored junior members and helped solve technical challenges',
+      'Progressed from MERN Stack trainee → Frontend Instructor',
+    ],
+  },
+]
+
+const CERTS = [
+  {
+    id: 'best-member',
+    icon: '🏆',
+    title: 'Best Member Award',
+    subtitle: 'IEEE El-Shorouk Academy Student Branch · 2025',
+    detail: null,
+  },
+  {
+    id: 'react-course',
+    icon: '⚛️',
+    title: 'The Ultimate React Course',
+    subtitle: 'Udemy · Jonas Schmedtmann · 84 hours',
+    detail: 'React, Next.js, Redux Toolkit, React Query, Supabase',
+  },
+  {
+    id: 'mern',
+    icon: '🟢',
+    title: 'MERN Stack Workshop',
+    subtitle: 'IEEE El-Shorouk Academy · 60 training hours · Aug 2025',
+    detail: null,
+  },
+  {
+    id: 'frontend-prog',
+    icon: '🎨',
+    title: 'Front-End Development Training Program',
+    subtitle: 'OrbScope Academy · 2025',
+    detail: null,
+  },
+  {
+    id: 'field',
+    icon: '🏗️',
+    title: 'Field Training Program',
+    subtitle: 'OrbScope Academy · 2025',
+    detail: null,
+  },
+]
 
 export default function Experience() {
-  return (
-    <section id="experience" className="section">
-      <ScrollReveal>
-        <div className="accent-line" />
-        <p className="mono" style={{ color: 'var(--color-accent)', fontSize: '0.9rem', marginBottom: '0.5rem' }}>
-          04. Experience
-        </p>
-        <h2 className="section-title">
-          Where I've Worked
-        </h2>
-      </ScrollReveal>
+  useReveal()
 
-      <div className="timeline" style={{ marginTop: '2.5rem', maxWidth: '700px' }}>
-        {experiences.map((exp, i) => (
-          <ScrollReveal key={i} delay={i * 0.15}>
-            <div className="timeline-item">
-              <div className="timeline-dot" />
-              <div
-                style={{
-                  background: 'var(--color-surface)',
-                  border: '1px solid var(--color-border)',
-                  borderRadius: '14px',
-                  padding: '1.5rem',
-                  transition: 'border-color 0.3s',
-                }}
-                onMouseEnter={(e) => (e.currentTarget.style.borderColor = 'var(--color-accent)')}
-                onMouseLeave={(e) => (e.currentTarget.style.borderColor = 'var(--color-border)')}
-              >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.5rem' }}>
-                  <div
-                    style={{
-                      width: '36px',
-                      height: '36px',
-                      borderRadius: '10px',
-                      background: 'var(--color-accent-glow)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      color: 'var(--color-accent)',
-                      flexShrink: 0,
-                    }}
-                  >
-                    <Briefcase size={18} />
-                  </div>
-                  <div>
-                    <h3
-                      style={{
-                        fontFamily: 'var(--font-heading)',
-                        fontSize: '1.1rem',
-                        fontWeight: 600,
-                        color: 'var(--color-text)',
-                      }}
-                    >
-                      {exp.title}
-                    </h3>
-                    {exp.org && (
-                      <p
-                        style={{
-                          color: 'var(--color-accent)',
-                          fontSize: '0.85rem',
-                          fontFamily: 'var(--font-mono)',
-                        }}
-                      >
-                        {exp.org}
-                      </p>
-                    )}
+  return (
+    <section id="experience" className="section experience-section">
+      <div className="container">
+        <div className="section-header reveal">
+          <span className="section-tag">// 04. experience</span>
+          <h2 className="section-title">Journey So Far</h2>
+        </div>
+
+        <div className="exp-grid">
+          {/* Timeline */}
+          <div className="exp-col reveal">
+            <h3 className="exp-col-title">Experience</h3>
+            <div className="timeline">
+              {TIMELINE.map(({ id, date, role, org, details }) => (
+                <div key={id} className="timeline-item">
+                  <div className="timeline-dot" />
+                  <div className="timeline-content">
+                    <span className="timeline-date">{date}</span>
+                    <h4 className="timeline-role">{role}</h4>
+                    <p className="timeline-org">{org}</p>
+                    <ul className="timeline-details">
+                      {details.map((d) => (
+                        <li key={d}>{d}</li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
-
-                <ul style={{ listStyle: 'none', padding: 0, marginTop: '0.75rem' }}>
-                  {exp.bullets.map((b, j) => (
-                    <li
-                      key={j}
-                      style={{
-                        color: 'var(--color-text-secondary)',
-                        fontSize: '0.9rem',
-                        lineHeight: 1.7,
-                        paddingLeft: '1rem',
-                        position: 'relative',
-                        marginBottom: '0.35rem',
-                      }}
-                    >
-                      <span
-                        style={{
-                          position: 'absolute',
-                          left: 0,
-                          color: 'var(--color-accent)',
-                          fontFamily: 'var(--font-mono)',
-                        }}
-                      >
-                        ▸
-                      </span>
-                      {b}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              ))}
             </div>
-          </ScrollReveal>
-        ))}
+          </div>
+
+          {/* Certifications */}
+          <div className="exp-col reveal">
+            <h3 className="exp-col-title">Certifications</h3>
+            <div className="certs-list">
+              {CERTS.map(({ id, icon, title, subtitle, detail }) => (
+                <div key={id} className="cert-card">
+                  <div className="cert-icon" aria-hidden="true">{icon}</div>
+                  <div className="cert-content">
+                    <strong>{title}</strong>
+                    <span>{subtitle}</span>
+                    {detail && <small>{detail}</small>}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     </section>
-  );
+  )
 }
