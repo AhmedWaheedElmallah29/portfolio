@@ -65,7 +65,7 @@ export default function Contact() {
           <div className="contact-bg" aria-hidden="true" />
 
           <div className="section-header">
-            <span className="section-tag">// 05. contact</span>
+            <span className="section-tag">Contact</span>
             <h2 className="section-title">Let's Build Something</h2>
           </div>
 

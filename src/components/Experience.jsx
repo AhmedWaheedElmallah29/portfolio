@@ -59,7 +59,7 @@ export default function Experience() {
     <section id="experience" className="section experience-section">
       <div className="container">
         <div className="section-header reveal">
-          <span className="section-tag">// 04. experience</span>
+          <span className="section-tag">Experience</span>
           <h2 className="section-title">Journey So Far</h2>
         </div>
 

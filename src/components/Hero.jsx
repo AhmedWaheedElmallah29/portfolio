@@ -1,9 +1,10 @@
 import { useEffect, useRef } from 'react'
 import { useCounter } from '../hooks/useCounter'
 import heroBg from '../assets/hero_bg.png'
+import ahmedPhoto from '../assets/ahmed.jpg'
 
-const PARTICLE_COUNT = 40
-const PARTICLE_COLORS = ['#3b82f6', '#8b5cf6', '#06b6d4', '#22c55e']
+const PARTICLE_COUNT = 25
+const PARTICLE_COLORS = ['#9b87f5', '#c4b5fd', '#f4a261', '#ffffff']
 
 function Particles() {
   const containerRef = useRef(null)
@@ -17,9 +18,9 @@ function Particles() {
       const p = document.createElement('div')
       p.className = 'particle'
       const x     = Math.random() * 100
-      const dur   = 8 + Math.random() * 12
-      const delay = Math.random() * 10
-      const size  = 1 + Math.random() * 3
+      const dur   = 12 + Math.random() * 16
+      const delay = Math.random() * 12
+      const size  = 1 + Math.random() * 2
       const color = PARTICLE_COLORS[Math.floor(Math.random() * PARTICLE_COLORS.length)]
       p.style.cssText = `
         left: ${x}%;
@@ -27,7 +28,7 @@ function Particles() {
         width: ${size}px;
         height: ${size}px;
         background: ${color};
-        box-shadow: 0 0 ${size * 3}px ${color};
+        opacity: 0.3;
         animation-duration: ${dur}s;
         animation-delay: -${delay}s;
       `
@@ -71,48 +72,67 @@ export default function Hero() {
         <div className="hero-bg-overlay" />
       </div>
 
-      {/* Particles */}
+      {/* Subtle Particles */}
       <Particles />
 
-      {/* Content */}
-      <div className="hero-content">
-        <div className="hero-badge">
-          <span className="badge-dot" />
-          Available for Freelance &amp; Collaboration
+      {/* Two-column layout */}
+      <div className="hero-inner">
+        {/* Left — Text Content */}
+        <div className="hero-content">
+          <div className="hero-badge">
+            <span className="badge-dot" />
+            Available for Freelance &amp; Collaboration
+          </div>
+
+          <h1 className="hero-title">
+            <span className="hero-title-name">Ahmed Elmallah</span>
+            <span className="hero-title-role">
+              Full-Stack <span className="gradient-text">Developer</span>
+            </span>
+          </h1>
+
+          <p className="hero-subtitle">
+            Building scalable, production-ready web applications with the{' '}
+            <strong>MERN stack</strong> and <strong>Next.js</strong> — from
+            real-time chat systems to full e-commerce platforms with admin
+            dashboards.
+          </p>
+
+          <div className="hero-actions">
+            <a href="#projects" onClick={scrollToProjects} className="btn btn-primary">
+              <span>View My Work</span>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </a>
+            <a href="#contact" onClick={scrollToContact} className="btn btn-ghost">
+              Get in Touch
+            </a>
+          </div>
+
+          <div className="hero-stats">
+            <StatCounter target={5}   label="Live Projects" />
+            <div className="stat-divider" aria-hidden="true" />
+            <StatCounter target={144} suffix="+" label="Training Hours" />
+            <div className="stat-divider" aria-hidden="true" />
+            <StatCounter target={5}   label="Certifications" />
+          </div>
         </div>
 
-        <h1 className="hero-title">
-          <span className="hero-title-name">Ahmed Elmallah</span>
-          <span className="hero-title-role">
-            Full-Stack <span className="gradient-text">Developer</span>
-          </span>
-        </h1>
-
-        <p className="hero-subtitle">
-          Building scalable, production-ready web applications with the{' '}
-          <strong>MERN stack</strong> and <strong>Next.js</strong> — from
-          real-time chat systems to full e-commerce platforms with admin
-          dashboards.
-        </p>
-
-        <div className="hero-actions">
-          <a href="#projects" onClick={scrollToProjects} className="btn btn-primary">
-            <span>View My Work</span>
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </a>
-          <a href="#contact" onClick={scrollToContact} className="btn btn-ghost">
-            Get in Touch
-          </a>
-        </div>
-
-        <div className="hero-stats">
-          <StatCounter target={5}   label="Live Projects" />
-          <div className="stat-divider" aria-hidden="true" />
-          <StatCounter target={144} suffix="+" label="Training Hours" />
-          <div className="stat-divider" aria-hidden="true" />
-          <StatCounter target={5}   label="Certifications" />
+        {/* Right — Photo */}
+        <div className="hero-photo-col">
+          <div className="hero-photo-wrap">
+            <div className="hero-photo-border" aria-hidden="true" />
+            <img
+              src={ahmedPhoto}
+              alt="Ahmed Elmallah — Full-Stack Developer"
+              className="hero-photo"
+            />
+            <div className="hero-photo-badge">
+              <span className="hero-photo-badge-dot" />
+              <span className="hero-photo-badge-text">Open to Work</span>
+            </div>
+          </div>
         </div>
       </div>
 

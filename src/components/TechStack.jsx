@@ -75,7 +75,7 @@ export default function TechStack() {
     <section id="stack" className="section stack-section">
       <div className="container">
         <div className="section-header reveal">
-          <span className="section-tag">// 02. tech stack</span>
+          <span className="section-tag">Tech Stack</span>
           <h2 className="section-title">My Toolkit</h2>
         </div>
 

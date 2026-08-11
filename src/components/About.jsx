@@ -41,7 +41,7 @@ export default function About() {
     <section id="about" className="section about-section">
       <div className="container">
         <div className="section-header reveal">
-          <span className="section-tag">// 01. about</span>
+          <span className="section-tag">About</span>
           <h2 className="section-title">Who I Am</h2>
         </div>
 
