@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 import { useReveal } from '../hooks/useReveal'
+import { PROJECT_LINKS } from '../constants/links'
 
 // ── Icons ──────────────────────────────────────────────
 const ExternalIcon = () => (
@@ -32,8 +33,8 @@ const PROJECTS = [
       { icon: '🎨', text: 'Framer Motion animations & optimized image loading' },
     ],
     tech: ['Next.js 16', 'React 19', 'Tailwind CSS v4', 'Supabase', 'Framer Motion', 'Recharts', 'next-intl'],
-    live: 'https://bare-bite.vercel.app/en',
-    github: null,
+    live: PROJECT_LINKS.barebite.live,
+    github: PROJECT_LINKS.barebite.github,
   },
   {
     id: 'streamify',
@@ -49,8 +50,8 @@ const PROJECTS = [
       { icon: '🔐', text: 'XSS-safe JWT auth with HTTP-only cookies' },
     ],
     tech: ['React 19', 'Node.js', 'MongoDB', 'Stream SDK', 'Zustand', 'JWT'],
-    live: 'https://sreamify-six.vercel.app/',
-    github: 'https://github.com/AhmedWaheedElmallah29/Sreamify',
+    live: PROJECT_LINKS.streamify.live,
+    github: PROJECT_LINKS.streamify.github,
   },
   {
     id: 'ieee',
@@ -62,8 +63,8 @@ const PROJECTS = [
       'The official website for the IEEE El-Shorouk Academy Student Branch, built to represent the branch\'s activities, events, and team to the public.',
     highlights: [],
     tech: ['React.js', 'JavaScript', 'Tailwind CSS'],
-    live: 'https://ieeesha.org/',
-    github: null,
+    live: PROJECT_LINKS.ieee.live,
+    github: PROJECT_LINKS.ieee.github,
   },
   {
     id: 'water',
@@ -75,8 +76,8 @@ const PROJECTS = [
       'A hydration tracking app with dashboard analytics, history tracking, secure authentication via Clerk, and full CRUD functionality with real-time optimistic UI updates deployed on Vercel serverless.',
     highlights: [],
     tech: ['React', 'Vite', 'Clerk', 'Express.js', 'MongoDB Atlas'],
-    live: 'https://water-tracker-all.vercel.app/',
-    github: null,
+    live: PROJECT_LINKS.water.live,
+    github: PROJECT_LINKS.water.github,
   },
   {
     id: 'ecommerce',
@@ -88,8 +89,8 @@ const PROJECTS = [
       'A responsive e-commerce single-page application with shopping cart functionality, global state management via Context API, and dynamic product data fetched via REST APIs.',
     highlights: [],
     tech: ['React', 'Vite', 'Context API', 'Formik', 'Axios', 'Mantine UI'],
-    live: 'https://1-e-commerce-project.vercel.app/',
-    github: null,
+    live: PROJECT_LINKS.ecommerce.live,
+    github: PROJECT_LINKS.ecommerce.github,
   },
 ]
 

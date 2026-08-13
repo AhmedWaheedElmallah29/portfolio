@@ -1,9 +1,10 @@
 import React from 'react';
+import { SITE_LINKS } from '../constants/links';
 
 const FloatingWhatsApp = () => {
   return (
     <a
-      href="https://wa.me/201095492533"
+      href={SITE_LINKS.whatsapp}
       target="_blank"
       rel="noopener noreferrer"
       className="floating-whatsapp"
